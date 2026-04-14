@@ -1,16 +1,243 @@
-# React + Vite
+# 🚦 React Router Beginner Guide
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and beginner-friendly guide to understanding **React Routing** using `react-router-dom`. This covers core concepts, commonly used modules, and practical examples for building multi-page React applications.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📌 What is React Routing?
 
-## React Compiler
+Routing in React allows you to navigate between different pages **without reloading the browser**.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Example Routes:
 
-## Expanding the ESLint configuration
+* `/` → Home Page
+* `/about` → About Page
+* `/contact` → Contact Page
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📦 Installation
+
+```bash
+npm install react-router-dom
+```
+
+---
+
+## 📚 Core Modules (Must Know)
+
+```js
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+  useParams
+} from "react-router-dom";
+```
+
+---
+
+## 🧠 Module Explanation
+
+### 1. BrowserRouter
+
+Wraps the entire app and enables routing.
+
+```js
+<BrowserRouter>
+  <App />
+</BrowserRouter>
+```
+
+---
+
+### 2. Routes
+
+Container that holds all route definitions.
+
+```js
+<Routes>
+  ...
+</Routes>
+```
+
+---
+
+### 3. Route
+
+Defines a path and the component to render.
+
+```js
+<Route path="/" element={<Home />} />
+<Route path="/about" element={<About />} />
+```
+
+---
+
+### 4. Link
+
+Used for navigation without page reload.
+
+```js
+<Link to="/about">Go to About</Link>
+```
+
+---
+
+### 5. useNavigate
+
+Used to navigate programmatically.
+
+```js
+const navigate = useNavigate();
+navigate("/home");
+```
+
+---
+
+### 6. useParams
+
+Used to access dynamic URL parameters.
+
+```js
+<Route path="/user/:id" element={<User />} />
+```
+
+```js
+const { id } = useParams();
+```
+
+---
+
+## 🏗️ Basic Example
+
+```js
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+
+function Home() {
+  return <h1>Home Page</h1>;
+}
+
+function About() {
+  return <h1>About Page</h1>;
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+---
+
+## 🔥 Advanced Concepts
+
+### Nested Routes
+
+```js
+<Route path="/dashboard" element={<Dashboard />}>
+  <Route path="profile" element={<Profile />} />
+</Route>
+```
+
+---
+
+### Layout Routes
+
+```js
+<Route path="/" element={<Layout />}>
+  <Route index element={<Home />} />
+</Route>
+```
+
+---
+
+### Protected Routes
+
+```js
+if (!user) {
+  return <Navigate to="/login" />;
+}
+```
+
+---
+
+### 404 Page
+
+```js
+<Route path="*" element={<NotFound />} />
+```
+
+---
+
+## 🧩 Folder Structure
+
+```
+src/
+ ├── pages/
+ │    ├── Home.jsx
+ │    ├── About.jsx
+ │    └── Contact.jsx
+ ├── components/
+ │    └── Navbar.jsx
+ ├── App.jsx
+ └── main.jsx
+```
+
+---
+
+## 🎯 Best Practices
+
+* Use `Link` instead of `<a>`
+* Wrap app only once with `BrowserRouter`
+* Keep routes organized inside `pages`
+* Use `useNavigate` for redirects
+
+---
+
+## 🚀 Summary
+
+| Concept   | Meaning      |
+| --------- | ------------ |
+| Route     | Path mapping |
+| Path      | URL          |
+| Component | UI page      |
+| Link      | Navigation   |
+
+---
+
+## 📖 Conclusion
+
+React Router is essential for building modern single-page applications. Mastering these basics will help you build scalable apps and is important for MERN stack development and interviews.
+
+---
+
+## 💡 Next Steps
+
+* Build a multi-page project
+* Add authentication (Protected Routes)
+* Connect with backend APIs
+
+---
+
+Happy Coding 🚀
